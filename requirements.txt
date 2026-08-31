@@ -1,0 +1,64 @@
+# Core Dependencies
+langchain
+langchain-google-genai
+langchain-huggingface
+langchain-openai
+langchain-community
+python-dotenv
+fastapi
+uvicorn
+python-multipart
+pyjwt
+passlib[bcrypt]
+python-jose[cryptography]
+google-auth-oauthlib
+google-api-python-client
+msal
+
+# LLM & AI
+google-generativeai
+
+# Web Framework
+streamlit
+
+# PDF Processing
+pypdf
+python-docx
+
+# Vector Database
+chromadb
+
+# Data Validation
+pydantic
+
+# Gmail API
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+google-auth
+
+# Utilities
+python-dateutil
+urllib3
+
+# Web Scraping
+selenium
+webdriver-manager
+beautifulsoup4
+requests
+
+# Browser Automation
+playwright
+
+# Dashboard
+plotly
+pandas
+
+# Additional
+sentence-transformers
+
+# PDF Generation
+reportlab
+
+# LaTeX Resume API
+requests

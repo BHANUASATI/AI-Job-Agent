@@ -1,0 +1,268 @@
+/* ============================================================
+   APP-LEVEL STYLES — AI Job Agent
+   ============================================================ */
+
+/* Full-viewport app shell */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   GLOBAL LOADING SCREEN
+   ============================================================ */
+.app-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+  gap: 1.5rem;
+}
+
+.app-loading__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: fadeInDown 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.app-loading__logo-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+}
+
+.app-loading__logo-icon svg {
+  width: 28px;
+  height: 28px;
+  color: white;
+}
+
+.app-loading__logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.025em;
+}
+
+.app-loading__logo-text span {
+  background: linear-gradient(135deg, #818cf8, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.app-loading__spinner {
+  display: flex;
+  gap: 0.4rem;
+  animation: fadeIn 0.6s 0.2s both;
+}
+
+.app-loading__dot {
+  width: 8px;
+  height: 8px;
+  background: #818cf8;
+  border-radius: 50%;
+  animation: bounceDot 1.4s ease-in-out infinite;
+}
+
+.app-loading__dot:nth-child(1) { animation-delay: 0s; }
+.app-loading__dot:nth-child(2) { animation-delay: 0.2s; }
+.app-loading__dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* ============================================================
+   TOAST NOTIFICATION SYSTEM
+   ============================================================ */
+.toast-container {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  min-width: 320px;
+  max-width: 440px;
+  padding: 1rem 1.25rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.06);
+  pointer-events: all;
+  animation: slideInRight 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  border-left: 4px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.toast::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 3px;
+  background: currentColor;
+  animation: toastProgress 3s linear forwards;
+  opacity: 0.3;
+}
+
+.toast--success { border-left-color: #10b981; color: #10b981; }
+.toast--error   { border-left-color: #ef4444; color: #ef4444; }
+.toast--warning { border-left-color: #f59e0b; color: #f59e0b; }
+.toast--info    { border-left-color: #6366f1; color: #6366f1; }
+
+.toast__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.toast__body { flex: 1; }
+
+.toast__title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.15rem;
+}
+
+.toast__message {
+  font-size: 0.8125rem;
+  color: #64748b;
+  line-height: 1.45;
+}
+
+.toast__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 0;
+  flex-shrink: 0;
+  transition: color 150ms, background 150ms;
+}
+
+.toast__close:hover {
+  color: #475569;
+  background: #f1f5f9;
+}
+
+.toast--leaving {
+  animation: slideOutRight 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+/* ============================================================
+   GLOBAL PAGE TRANSITION WRAPPER
+   ============================================================ */
+.page-enter {
+  animation: pageFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Dashboard wrapper must not apply transform — it breaks position:fixed on the sidebar */
+.page-enter:has(.dashboard) {
+  animation: pageFadeInOpacity 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideOutRight {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(60px); }
+}
+
+@keyframes bounceDot {
+  0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+  40%           { transform: scale(1.2); opacity: 1; }
+}
+
+@keyframes toastProgress {
+  from { width: 100%; }
+  to   { width: 0%; }
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pageFadeInOpacity {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
